@@ -1,0 +1,25 @@
+query Input {
+  cart {
+     buyerIdentity{
+      customer{
+        numberOfOrders
+      }
+    }
+    lines {
+      id
+      quantity
+      freeProduct: attribute(key: "_variety_pack") {
+        value
+      }
+       orderCount: attribute(key: "_order_count") {
+        value
+      }
+      merchandise {
+        __typename
+        ... on ProductVariant {
+          id
+        }
+      }
+    }
+  }
+}
