@@ -27,14 +27,13 @@ export function run(input) {
     percentage: 100,
   };
 
-  const globalMessage = "First order complementry!!";
+  const globalMessage = "Complementry product";
   
   const varietyPackLines = input.cart.lines.find(line => {
     const isFreeProduct = line.freeProduct;
     if(isFreeProduct != null){
-      const orderCount  = line.orderCount.value;
-      console.log('orderCount',orderCount);
-    if(isFreeProduct.value) {
+      const orderCount  = parseInt(line.orderCount.value);
+    if(isFreeProduct.value && orderCount < 1) {
       return isFreeProduct;
     }
   }
@@ -42,14 +41,13 @@ export function run(input) {
 
 
   // If no qualifying variety pack products are found, return no discount
-  if (varietyPackLines.length === 0) {
+  if (!varietyPackLines) {
     console.error("No variety pack products found.");
     return EMPTY_DISCOUNT;
   }
 
   const discountTargets = [];
 
-  console.log('varietyPackLines',varietyPackLines.id);
 
   // Apply 100% discount to only the first variety pack product
   discountTargets.push({
